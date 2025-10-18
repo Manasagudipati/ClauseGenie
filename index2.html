@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClauseGenie - Legal AI</title>
+    <link rel="stylesheet" href="style2.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="splash-screen">
+        <h1 id="app-name">ClauseGenie</h1>
+        <div id="swipe-indicator">
+            <p>swipe up or tap to open main app</p>
+            <div class="arrow"></div>
+        </div>
+    </div>
+
+    <script>
+        const splashScreen = document.getElementById('splash-screen');
+        // This links to your main dashboard (index1.html)
+        const mainContentFile = 'index1.html'; 
+
+        function openMainApp() {
+            if (splashScreen.classList.contains('slide-up-exit')) {
+                return;
+            }
+
+            splashScreen.classList.add('slide-up-exit');
+            
+            setTimeout(() => {
+                window.location.href = mainContentFile; 
+            }, 800); 
+        }
+
+        // Event Listeners for "Swipe Up" or Click/Tap
+        splashScreen.addEventListener('click', openMainApp);
+
+        let startY;
+        splashScreen.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+        });
+
+        splashScreen.addEventListener('touchend', (e) => {
+            const endY = e.changedTouches[0].clientY;
+            if (startY - endY > 50) { 
+                openMainApp();
+            }
+        });
+
+        // Prevents scrolling on the splash screen while swiping
+        splashScreen.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
